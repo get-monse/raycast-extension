@@ -1,8 +1,8 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "monse",
-  "title": "monse",
-  "description": "Connect your bank account and see latest transactions and details.",
+  "title": "Monse - Banking In Raycast",
+  "description": "Connect your bank account and see latest incomes, expenses, and details.",
   "icon": "commands-icon.png",
   "author": "Falcon",
   "categories": [
@@ -43,8 +43,8 @@
   "commands": [
     {
       "name": "transactions",
-      "title": "Transactions",
-      "subtitle": "monse",
+      "title": "Latest Transactions",
+      "subtitle": "Monse",
       "description": "List your latest transactions from your connected accounts.",
       "mode": "view"
     }

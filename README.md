@@ -1,9 +1,6 @@
 # monse
 Connect your bank account and see the latest transactions and details.
 
-![Extension screenshot](assets/screenshot.png)
-
-
 ## 1. How to configure this extension
 To use this extension we need a Public API Token. You can get this token from your account at [monse.app](https://monse.app).
    
