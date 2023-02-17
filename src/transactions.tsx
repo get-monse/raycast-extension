@@ -1,4 +1,4 @@
-import { Action, ActionPanel, Color, Icon, List } from "@raycast/api";
+import { Action, ActionPanel, Color, Icon, Image, List } from "@raycast/api";
 import { useState } from "react";
 import { preferences } from "./utils/preferences";
 import { format_currency } from "./utils/numbers";
@@ -17,42 +17,43 @@ export default function Command() {
       {transactions.map((transaction: Transaction) => (
         <List.Item
           key={transaction.id}
-          title={transaction.concept.split("\n", 1)[0].substring(0, 25)}
+          title={transaction.concept.split("\n", 1)[0].substring(0, 30)}
           detail={
-              <List.Item.Detail
-                  markdown={
-                    `## ${transaction.concept}\n` +
-                    `${transaction.notes || ""}\n`
-                  }
-                  metadata={
-                      <List.Item.Detail.Metadata>
-                          <List.Item.Detail.Metadata.Label
-                              title="Amount"
-                              text={format_currency(transaction.amount, preferences.currency)} />
-                          <List.Item.Detail.Metadata.Label
-                              title="Booked at"
-                              text={new Date(transaction.booked_at).toLocaleString()} />
-                          <List.Item.Detail.Metadata.Label
-                              title="Category"
-                              icon={{
-                                  source: transaction.type === "expense" ? Icon.ArrowUp : Icon.ArrowDown,
-                                  tintColor: transaction.type === "expense" ? Color.Red : Color.Green,
-                              }}
-                              text={transaction.category.name}
-                              />
-                          <List.Item.Detail.Metadata.Separator />
-                          <List.Item.Detail.Metadata.Label
-                              title="Bank"
-                              text={transaction.bank_account.bank.name}
-                              icon={transaction.bank_account.bank.logo}
-                          />
-                          <List.Item.Detail.Metadata.Label title="Account" text={transaction.bank_account.name} />
-                      </List.Item.Detail.Metadata>
-                  } />
+            <List.Item.Detail
+              markdown={`## ${transaction.concept}\n` + `${transaction.notes || ""}\n`}
+              metadata={
+                <List.Item.Detail.Metadata>
+                  <List.Item.Detail.Metadata.Label
+                    title="Amount"
+                    text={format_currency(transaction.amount, preferences.currency)}
+                  />
+                  <List.Item.Detail.Metadata.Label
+                    title="Booked at"
+                    text={new Date(transaction.booked_at).toLocaleString()}
+                  />
+                  <List.Item.Detail.Metadata.Label
+                    title="Category"
+                    icon={{
+                      source: transaction.type === "expense" ? Icon.ArrowUp : Icon.ArrowDown,
+                      tintColor: transaction.type === "expense" ? Color.Red : Color.Green,
+                    }}
+                    text={transaction.category.name}
+                  />
+                  <List.Item.Detail.Metadata.Separator />
+                  <List.Item.Detail.Metadata.Label
+                    title="Bank"
+                    text={transaction.bank_account.bank.name}
+                    icon={{
+                      source: transaction.bank_account.bank.logo,
+                      mask: Image.Mask.RoundedRectangle,
+                    }}
+                  />
+                  <List.Item.Detail.Metadata.Label title="Account" text={transaction.bank_account.name} />
+                </List.Item.Detail.Metadata>
+              }
+            />
           }
-          accessories={[
-            { date: new Date(transaction.booked_at) },
-          ]}
+          accessories={[{ date: new Date(transaction.booked_at) }]}
           actions={getActions(transaction, categories, revalidate)}
         />
       ))}
