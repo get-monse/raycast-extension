@@ -6,11 +6,11 @@ import { preferences } from "../utils/preferences";
 type BankAccountsResponse = {
   isLoading: boolean;
   bankAccounts: Array<BankAccount>;
-  revalidate: () => void;
+  mutate: () => void;
 };
 
 const fetchBankAccounts = function (): BankAccountsResponse {
-  const { isLoading, data, revalidate } = useFetch<BankAccount[]>(`https://monse.app/v1/bank-accounts?include=bank`, {
+  const { isLoading, data, mutate } = useFetch<BankAccount[]>(`https://monse.app/v1/bank-accounts?include=bank`, {
     headers: { Authorization: `Bearer ${preferences.token}` },
     keepPreviousData: true,
     onError: async () => {
@@ -25,7 +25,7 @@ const fetchBankAccounts = function (): BankAccountsResponse {
   let bankAccounts: Array<BankAccount> = data === undefined ? [] : data;
   bankAccounts = bankAccounts.filter((b) => !b.hidden);
 
-  return { isLoading, bankAccounts, revalidate };
+  return { isLoading, bankAccounts, mutate };
 };
 
 export { fetchBankAccounts };
