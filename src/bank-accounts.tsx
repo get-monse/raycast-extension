@@ -5,6 +5,7 @@ import { format_currency } from "./utils/numbers";
 import { preferences } from "./utils/preferences";
 import React from "react";
 import { UpdateBalanceForm } from "./update-balance-form";
+import { MutatePromise } from "@raycast/utils";
 
 export default function Command() {
   const { isLoading, bankAccounts, mutate } = fetchBankAccounts();
@@ -28,7 +29,7 @@ export default function Command() {
   );
 }
 
-function getActions(account: BankAccount, mutate: () => void) {
+function getActions(account: BankAccount, mutate: MutatePromise<BankAccount[]>) {
   return (
     <ActionPanel title="Actions">
       <Action.Push
